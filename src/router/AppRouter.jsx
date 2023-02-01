@@ -7,6 +7,7 @@ import About from '../pages/About'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Product from '../pages/Product'
+import Register from '../pages/Register'
 
 const AppRouter = () => {
   return (
@@ -14,9 +15,10 @@ const AppRouter = () => {
     <Navbar/>
     <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/about" element={<About/>} />
-        <Route path="/product" element={<Product/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="about" element={<About/>} />
+        <Route path="product" element={<Product/>} />
+        <Route path="login" element={<Login/>} />
+        <Route path="register" element={<Register/>} />
     </Routes>
     <Footer/>
    

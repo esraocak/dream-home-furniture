@@ -11,21 +11,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { textAlign } from '@mui/system';
-import { Badge } from '@mui/material';
 
+import { Badge, Link } from '@mui/material';
+import { login, pages } from '../utils/constants';
 
-const pages = ['Home', 'About', 'Products'];
 const settings = ['Login', 'Register', 'Logout' ];
 
 const Navbar = () => {
 
-  const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] =useState(null);
@@ -96,11 +91,15 @@ const Navbar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page) => {
+                const {id,text,url}=page
+               return(
+                <MenuItem key={id} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center"     >
+                    <Link href={url} underline="none" sx={{color:"black"}}>{text}</Link></Typography>
                 </MenuItem>
-              ))}
+               )}
+              )}
             </Menu>
           </Box>
 
@@ -124,15 +123,20 @@ const Navbar = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml:20 }}> {/* büyük ekran menü list*/}
-            {pages.map((page) => (
+          {pages.map((page) => {
+              const {id,text,url}=page
+              return (
               <Button
-                key={page}
+                key={id}
                 onClick={handleCloseNavMenu} //???
                 sx={{ my: 2, color: 'inherit', display: 'block', px:'1.5rem' }}
+                href={url}
               >
-                {page}
+                {text}
               </Button>
-            ))}
+              )}
+            )}
+
           </Box>
 
           <Box sx={{ m:0.1}}> {/*favorite*/}
@@ -175,11 +179,15 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {login.map((login) => {
+                const {id,url,text}=login
+                return(
+                <MenuItem key={id} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link href={url} underline="none" sx={{color:"black"}}>{text}</Link> 
+                  </Typography>
+                </MenuItem>)}
+              )}
             </Menu>
           </Box>
         </Toolbar>
