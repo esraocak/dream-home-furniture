@@ -122,7 +122,7 @@ const Navbar = () => {
             Dream Home Furniture
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml:20 }}> {/* büyük ekran menü list*/}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml:35 }}> {/* büyük ekran menü list*/}
           {pages.map((page) => {
               const {id,text,url}=page
               return (
