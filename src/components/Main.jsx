@@ -20,7 +20,7 @@ import { services } from '../utils/constants'
 
 const Home = () => {
 
-  const { productList } = useSelector((state) => state.product);
+  
 
   const dispatch = useDispatch();
   const navigate =useNavigate();
@@ -31,7 +31,8 @@ const Home = () => {
  
    }, []);
 
- 
+const { productList } = useSelector((state) => state.product);
+   console.log(productList);
 
     return (
         <>
@@ -48,22 +49,24 @@ const Home = () => {
             </Box>
             <Box sx={{position:"relative", width:"30vw", m:"2rem"}}>
                 <img className='imgone' src={hero1} alt="photobig" />
-                <img className='imgtwo' src={hero2} alt="photolittle" />   
+                <img className='imgtwo' src={hero2} alt=":photolittle" />   
             </Box>
         </Box>
 
         {/*//! İkinci kisim product */}
 
-        <Box sx={{background:"#f1f5f8" , p:"0.5rem",}}>
-            <Typography variant="h4" sx={{mt:"2rem"}} align="center" >
+        <Box sx={{background:"#f1f5f8" , p:"0.5rem", height:"30rem",display:'flex', flexDirection:"column",alignItems:"center", justifyContent:"center",}}>
+            <Typography variant="h4" sx={{mb:"1rem"}} align="center" >
                 Featured Products
             </Typography>
+            <Container sx={{display:"flex", gap:"2rem",justifyContent:"center"}} >
             {productList?.slice(0,3).map((item,index)=> {
-                return(<Card sx={{ maxWidth: 345 }} key={index}>
+                return(<Card sx={{ maxWidth: 400, m:3 }} key={index}>
                     <CardActionArea>
                       <CardMedia
                         component="img"
                         height="140"
+                        width="300"
                         image={item?.image}
                         alt={item?.name}
                       />
@@ -79,6 +82,7 @@ const Home = () => {
                   </Card>
                 )})
             }
+            </Container> 
             <Button onClick={()=>navigate("/products")} variant="contained" sx={{background:'#d7ccc8', color:"black" ,width:"10rem", display:"block", mx:"auto", mb:"2rem", mt:"1rem"}}>ALL PRODUCTS</Button>  
         </Box>
         

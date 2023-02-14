@@ -17,7 +17,7 @@ export const getProduct = createAsyncThunk (
       try {
         const { data } = await axios (url);
         console.log(data)
-        return data.articles;
+        return data;
       } catch (error) {
         console.log(error);
         return rejectWithValue("Something went wrong");
@@ -51,7 +51,7 @@ const productSlice = createSlice({
         state.loading = true;
       })
       .addCase (getProduct.fulfilled, (state,{payload})=> {
-        state.newsList = payload;
+        state.productList = payload;
         state.loading = false;
       })
       .addCase (getProduct.rejected, (state,{payload})=> {
