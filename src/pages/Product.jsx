@@ -1,10 +1,14 @@
 import { Breadcrumbs, Link, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from 'react'
+import Filter from "../components/Filter";
+import ProductsComp from "../components/ProductsComp";
+import Search from "../components/Search";
+import Sort from "../components/Sort";
 
 const Product = () => {
   return (
-    <div>
+    <>
       <Box sx={{ background: "#fafafa", p: "2rem", mt: "3rem" }}>
         <Breadcrumbs
           aria-label="breadcrumb"
@@ -17,8 +21,26 @@ const Product = () => {
             Products
           </Typography>
         </Breadcrumbs>
+       </Box> 
+
+      <Box sx={{ display:"flex", flexDirection:"column"}}> {/* en dış  */}
+
+        {/* // ! üst kısım */}
+      <Box ml="1rem" sx={{ display:"flex"}} >
+       <Search/>
+       <Sort/>
       </Box>
-    </div>
+
+      {/* // ! alt kısım */}
+      <Box>
+        <Filter/>
+        <ProductsComp/>
+      </Box>
+
+
+
+      </Box>
+    </>
   )
 }
 
