@@ -12,6 +12,7 @@ const Search = () => {
         color="black"
         placeholder="Search"
         margin="normal"
+        sx={{width:"10rem"}}
       />
     </>
   );

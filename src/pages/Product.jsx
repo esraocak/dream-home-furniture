@@ -23,23 +23,23 @@ const Product = () => {
         </Breadcrumbs>
        </Box> 
 
-      <Box sx={{ display:"flex", flexDirection:"column"}}> {/* en dış  */}
+      <Container sx={{display:"flex",ml:"2rem"}}> {/* en dış  */}
 
-        {/* // ! üst kısım */}
-      <Box ml="1rem" sx={{ display:"flex"}} >
+        {/* // ! sol kısım */}
+      <Box sx={{ display:"flex", flexDirection:"column"}} >
        <Search/>
-       <Sort/>
+       <Filter/>
       </Box>
 
-      {/* // ! alt kısım */}
-      <Box>
-        <Filter/>
+      {/* // ! sağ kısım */}
+      <Box sx={{ml:"50px"}}>
+        <Sort/>
         <ProductsComp/>
       </Box>
 
 
 
-      </Box>
+      </Container>
     </>
   )
 }
