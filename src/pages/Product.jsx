@@ -14,7 +14,7 @@ const Product = () => {
           aria-label="breadcrumb"
           sx={{ ml: "8rem", fontSize: "2.2rem", fontWeight: "800" }}
         >
-          <Link color="#6d4c41" href="/home" underline="hover">
+          <Link color="#6d4c41" href="/" underline="hover">
             Home
           </Link>
           <Typography color="textPrimary" fontSize="2.2rem" fontWeight="800">
@@ -26,13 +26,13 @@ const Product = () => {
       <Container sx={{display:"flex",ml:"2rem"}}> {/* en dış  */}
 
         {/* // ! sol kısım */}
-      <Box sx={{ display:"flex", flexDirection:"column"}} >
+      <Box sx={{ display:"flex", flexDirection:"column",}} >
        <Search/>
        <Filter/>
       </Box>
 
       {/* // ! sağ kısım */}
-      <Box sx={{ml:"50px"}}>
+      <Box sx={{ml:"50px",}}>
         <Sort/>
         <ProductsComp/>
       </Box>
