@@ -16,10 +16,10 @@ export const getProduct = createAsyncThunk(
     const url = "https://course-api.com/react-store-products";
     try {
       const { data } = await axios(url);
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return rejectWithValue("Something went wrong");
     }
   }
@@ -32,17 +32,7 @@ const productSlice = createSlice({
     setProduct: (state, { payload }) => {
       state.productList = payload;
     },
-    // setSortingList: (state, { payload }) => {
-    //     state.sortingList = payload;
-    // },
-
-    // setFinalList: (state, { payload }) => {
-    //     state.finalList = payload;
-    // },
-
-    // clearProduct: (state, { payload }) => {
-    //     state.productList = [];
-    // },
+  
   },
   extraReducers: (builder) => {
     builder
@@ -60,7 +50,7 @@ const productSlice = createSlice({
   },
 });
 
-export const { setProduct, setSortingList, setFinalList } =
+export const { setProduct, } =
   productSlice.actions;
 
 export default productSlice.reducer;

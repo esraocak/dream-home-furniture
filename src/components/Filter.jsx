@@ -14,27 +14,33 @@ import { getUniqueValues } from "../utils/helpers";
 import { getProduct } from "../features/productSlice";
 import { Box, width } from "@mui/system";
 import { grey } from "@mui/material/colors";
+import { setFilters } from "../features/filterSlice";
 
 const Filter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProduct());
-    console.log(productList);
+    // console.log(productList);
   }, []);
 
   const { productList } = useSelector((state) => state.product);
   const categories = getUniqueValues(productList, "category");
   const companies = getUniqueValues(productList, "company");
   const colors = getUniqueValues(productList, "colors");
-  console.log(categories);
+
+  const updateFilters = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    dispatch(setFilters(e.target.value));
+  };
+
   return (
     <>
       <Box display="flex" flexDirection="column" gap="1rem">
         {/* category */}
         <Box
-          display="flex
-      "
+          display="flex"
           flexDirection="column"
           justifyContent="center"
           mt="0.8rem"
@@ -49,6 +55,8 @@ const Filter = () => {
                   size="small"
                   sx={{ color: "gray", width: "8rem" }}
                   style={{ justifyContent: "flex-start" }}
+                  value={c}
+                  onClick={updateFilters}
                 >
                   {c}
                 </Button>
@@ -69,6 +77,7 @@ const Filter = () => {
                 fontSize: "0.8rem",
                 mt: "0.5rem",
               }}
+              onChange={updateFilters}
             >
               {companies.map((c, index) => {
                 return (
@@ -100,7 +109,14 @@ const Filter = () => {
                     key={index}
                     name="color"
                     data-color="all"
-                    style={{ background:"white", border: "none", width: "2rem", fontSize:"1rem",color:"gray" }}
+                    style={{
+                      background: "white",
+                      border: "none",
+                      width: "2rem",
+                      fontSize: "1rem",
+                      color: "gray",
+                    }}
+                    onClick={updateFilters}
                   >
                     All
                   </button>
@@ -118,8 +134,9 @@ const Filter = () => {
                     border: "none",
                   }}
                   data-color={c}
+                  onClick={updateFilters}
                 >
-                  {/* {color === c ? <FaCheck /> : null} //!sonra ekle */ }
+                  {/* {color === c ? <FaCheck /> : null} //!sonra ekle */}
                 </button>
               );
             })}
@@ -135,6 +152,7 @@ const Filter = () => {
               valueLabelDisplay="auto"
               min={0}
               max={310000}
+              onClick={updateFilters}
             />
           </Box>
         </Box>
@@ -144,6 +162,7 @@ const Filter = () => {
           <FormControlLabel
             control={<Checkbox defaultChecked />}
             label="Free Shipping"
+            onChange={updateFilters}
           />
         </Box>
         {/* clear filter */}
@@ -156,9 +175,10 @@ const Filter = () => {
             display: "block",
             mx: "auto",
             mb: "2rem",
-            textTransform:"none",
-            fontSize:"0.9rem"
+            textTransform: "none",
+            fontSize: "0.9rem",
           }}
+          onClick={updateFilters}
         >
           Clear Filters
         </Button>
