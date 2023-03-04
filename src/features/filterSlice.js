@@ -11,6 +11,7 @@ const initialState = {
     price: 0,
     shipping: false,
   },
+  
 };
 
 const filterSlice = createSlice({
@@ -19,10 +20,17 @@ const filterSlice = createSlice({
   reducers: {
     setFilters: (state, { payload }) => {
       console.log(payload);
-      state.filters = payload;
+    
+      return{
+      ...state.filters = payload};
+  
+      
+      
     },
   },
 });
+
+
 
 export const { setFilters } = filterSlice.actions;
 

@@ -31,6 +31,7 @@ const Filter = () => {
 
   const updateFilters = (e) => {
     e.preventDefault();
+    const {name,value}=e.target;
     console.log(e.target.value);
     dispatch(setFilters(e.target.value));
   };
@@ -116,6 +117,7 @@ const Filter = () => {
                       fontSize: "1rem",
                       color: "gray",
                     }}
+                    value="all"
                     onClick={updateFilters}
                   >
                     All
@@ -134,6 +136,7 @@ const Filter = () => {
                     border: "none",
                   }}
                   data-color={c}
+                  value={c}
                   onClick={updateFilters}
                 >
                   {/* {color === c ? <FaCheck /> : null} //!sonra ekle */}
@@ -152,7 +155,7 @@ const Filter = () => {
               valueLabelDisplay="auto"
               min={0}
               max={310000}
-              onClick={updateFilters}
+              onChange={updateFilters}
             />
           </Box>
         </Box>
