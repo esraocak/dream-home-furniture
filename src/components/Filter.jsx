@@ -18,13 +18,16 @@ import { setFilters } from "../features/filterSlice";
 
 const Filter = () => {
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     dispatch(getProduct());
     // console.log(productList);
   }, []);
+  
 
-  const { productList } = useSelector((state) => state.product);
+  const { filters } = useSelector((state) => state.filter);
+  const { productList,} = useSelector((state) => state.product);
   const categories = getUniqueValues(productList, "category");
   const companies = getUniqueValues(productList, "company");
   const colors = getUniqueValues(productList, "colors");
@@ -33,7 +36,7 @@ const Filter = () => {
     e.preventDefault();
     const {name,value}=e.target;
     console.log(e.target.value);
-    dispatch(setFilters(e.target.value));
+    dispatch(setFilters({...filters,[name]:value}));
   };
 
   return (
