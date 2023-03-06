@@ -6,8 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Sort = () => {
+  const { productList } = useSelector((state) => state.product);
+  const { filteredList } = useSelector((state) => state.filter);
   return (
     <>
       <Box
@@ -22,7 +25,7 @@ const Sort = () => {
       >
         <Box display="flex" mr="2rem">
           <Typography textAlign="center" mt="0.8rem" width="40%" noWrap>
-            22 Products Found
+          {filteredList?.length ? filteredList.length : productList?.length} Products Found
           </Typography>
           <Box ml="3rem">
             <hr

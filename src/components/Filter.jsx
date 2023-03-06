@@ -8,35 +8,102 @@ import {
   Slider,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUniqueValues } from "../utils/helpers";
 import { getProduct } from "../features/productSlice";
-import { Box, width } from "@mui/system";
+import { Box } from "@mui/system";
 import { grey } from "@mui/material/colors";
-import { setFilters } from "../features/filterSlice";
+import { setFilteredList } from "../features/filterSlice";
 
 const Filter = () => {
   const dispatch = useDispatch();
-  
+  const [filters, setFilters] = useState({
+    text: "",
+    company: "all",
+    category: "all",
+    color: "all",
+    min_price: 0,
+    max_price: 0,
+    price: 0,
+    shipping: false,
+  });
 
   useEffect(() => {
     dispatch(getProduct());
     // console.log(productList);
   }, []);
-  
 
-  const { filters } = useSelector((state) => state.filter);
-  const { productList,} = useSelector((state) => state.product);
+  useEffect(() => {
+    filteredProducts();
+  }, [filters]);
+
+  const { productList } = useSelector((state) => state.product);
+
   const categories = getUniqueValues(productList, "category");
   const companies = getUniqueValues(productList, "company");
   const colors = getUniqueValues(productList, "colors");
 
   const updateFilters = (e) => {
     e.preventDefault();
-    const {name,value}=e.target;
+    const { name, value } = e.target;
     console.log(e.target.value);
-    dispatch(setFilters({...filters,[name]:value}));
+    setFilters({ ...filters, [name]: value });
+    filteredProducts();
+  };
+
+  const filteredProducts = () => {
+    console.log(filters);
+
+    const { text, category, company, color, price, shipping } = filters;
+
+    if (text) {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) =>
+            product.name.toLowerCase().startsWith(text)
+          )
+        )
+      );
+    }
+    if (category !== "all") {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.category === category)
+        )
+      );
+    }
+    if (company !== "all") {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.company === company)
+        )
+      );
+    }
+    if (color !== "all") {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => {
+            return product.colors.find((c) => c === color);
+          })
+        )
+      );
+    }
+    if (price) {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.price <= price)
+        )
+      );
+    }
+
+    if (shipping) {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.shipping === true)
+        )
+      );
+    }
   };
 
   return (
@@ -61,6 +128,7 @@ const Filter = () => {
                   style={{ justifyContent: "flex-start" }}
                   value={c}
                   onClick={updateFilters}
+                  name="category"
                 >
                   {c}
                 </Button>
@@ -81,6 +149,7 @@ const Filter = () => {
                 fontSize: "0.8rem",
                 mt: "0.5rem",
               }}
+              name="company"
               onChange={updateFilters}
             >
               {companies.map((c, index) => {
@@ -158,6 +227,7 @@ const Filter = () => {
               valueLabelDisplay="auto"
               min={0}
               max={310000}
+              name="price"
               onChange={updateFilters}
             />
           </Box>
@@ -169,6 +239,7 @@ const Filter = () => {
             control={<Checkbox defaultChecked />}
             label="Free Shipping"
             onChange={updateFilters}
+            name="shipping"
           />
         </Box>
         {/* clear filter */}
@@ -184,7 +255,6 @@ const Filter = () => {
             textTransform: "none",
             fontSize: "0.9rem",
           }}
-          onClick={updateFilters}
         >
           Clear Filters
         </Button>

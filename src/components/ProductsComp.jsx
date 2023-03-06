@@ -8,7 +8,9 @@ import { Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/ma
 
 const ProductsComp = () => {
   const { productList, loading, error } = useSelector((state) => state.product);
+  const { filteredList } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
+  console.log(filteredList)
 
   useEffect(() => {
     dispatch(getProduct());
@@ -30,7 +32,7 @@ const ProductsComp = () => {
         
           <Container sx={{display:"flex", flexWrap:"wrap", justifyContent:"center", alignItems:"center"}}>
          
-             {productList?.map((item, index) => {
+             {(filteredList?.length ? filteredList : productList)?.map((item, index) => {
             return (
               <Card sx={{ minWidth:200, maxWidth: 400, m: 3 }} key={index}>
                 <CardActionArea>
