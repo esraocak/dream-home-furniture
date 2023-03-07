@@ -12,7 +12,7 @@ const initialState = {
     price: 0,
     shipping: false,
   },
-  filteredList:[] ,
+  filteredList:{} ,
 };
 
 const filterSlice = createSlice({
