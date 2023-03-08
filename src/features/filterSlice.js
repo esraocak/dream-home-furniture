@@ -21,7 +21,7 @@ const filterSlice = createSlice({
   reducers: {
     setFilters: (state, { payload }) => {
       console.log(payload);
-      state.filters = payload;
+      state.filters = payloadşşşşşşşşşşşşş                 mm                öm                  ;
     
     },
 
