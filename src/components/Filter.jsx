@@ -51,95 +51,96 @@ const Filter = () => {
     setFilters({ ...filters, [name]: value });
   };
 
-  const filteredProducts = () => {
-    console.log(filters);
-
-    const { text, category, company, color, price, shipping } = filters;
-
-    if (text) {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) =>
-            product.name.toLowerCase().startsWith(text)
-          )
-        )
-      );
-    }
-    if (category !== "all") {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.category === category)
-        )
-      );
-    }
-    if (company !== "all") {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.company === company)
-        )
-      );
-    }
-    if (color !== "all") {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => {
-            return product.colors.find((c) => c === color);
-          })
-        )
-      );
-    }
-    if (price) {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.price <= price)
-        )
-      );
-    }
-
-    if (shipping) {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.shipping === true)
-        )
-      );
-    }
-
-  };
-
   // const filteredProducts = () => {
   //   console.log(filters);
+
   //   const { text, category, company, color, price, shipping } = filters;
-  //   let tempProducts = [...productList];
+
   //   if (text) {
-  //     tempProducts = tempProducts.filter((product) =>
-  //       product.name.toLowerCase().startsWith(text)
+  //     dispatch(
+  //       setFilteredList(
+  //         productList?.filter((product) =>
+  //           product.name.toLowerCase().startsWith(text)
+  //         )
+  //       )
   //     );
   //   }
   //   if (category !== "all") {
-  //     tempProducts = tempProducts.filter(
-  //       (product) => product.category === category
+  //     dispatch(
+  //       setFilteredList(
+  //         productList?.filter((product) => product.category === category)
+  //       )
   //     );
   //   }
   //   if (company !== "all") {
-  //     tempProducts = tempProducts.filter(
-  //       (product) => product.company === company
+  //     dispatch(
+  //       setFilteredList(
+  //         productList?.filter((product) => product.company === company)
+  //       )
   //     );
   //   }
   //   if (color !== "all") {
-  //     tempProducts = tempProducts.filter((product) => {
-  //       return product.colors.find((c) => c === color);
-  //     });
-  //   }
-
-  //   tempProducts = tempProducts.filter((product) => product.price <= price);
-
-  //   if (shipping) {
-  //     tempProducts = tempProducts.filter(
-  //       (product) => product.shipping === true
+  //     dispatch(
+  //       setFilteredList(
+  //         productList?.filter((product) => {
+  //           return product.colors.find((c) => c === color);
+  //         })
+  //       )
   //     );
   //   }
-  //   return setFilteredList(tempProducts);
+  //   if (price) {
+  //     dispatch(
+  //       setFilteredList(
+  //         productList?.filter((product) => product.price <= price)
+  //       )
+  //     );
+  //   }
+
+  //   if (shipping) {
+  //     dispatch(
+  //       setFilteredList(
+  //         productList?.filter((product) => product.shipping === true)
+  //       )
+  //     );
+  //   }
   // };
+
+  const filteredProducts = () => {
+    console.log(filters);
+    const { text, category, company, color, price, shipping } = filters;
+    let tempProducts = [...productList];
+    console.log(tempProducts)
+    if (text) {
+      tempProducts = tempProducts.filter((product) =>
+        product.name.toLowerCase().startsWith(text)
+      );
+    }
+    if (category !== "all") {
+      tempProducts = tempProducts.filter(
+        (product) => product.category === category
+      );
+    }
+    if (company !== "all") {
+      tempProducts = tempProducts.filter(
+        (product) => product.company === company
+      );
+    }
+    if (color !== "all") {
+      tempProducts = tempProducts.filter((product) => {
+        return product.colors.find((c) => c === color);
+      });
+    }
+
+    tempProducts = tempProducts.filter((product) => product.price <= price);
+
+    if (shipping) {
+      tempProducts = tempProducts.filter(
+        (product) => product.shipping === true
+      );
+    }
+ 
+    return setFilteredList(tempProducts);
+  };
 
   return (
     <>

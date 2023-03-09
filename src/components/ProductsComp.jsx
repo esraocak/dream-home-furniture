@@ -30,7 +30,7 @@ const ProductsComp = () => {
       )}
       {!loading && (
         
-          <Container sx={{display:"flex", flexWrap:"wrap", justifyContent:"center", alignItems:"center"}}>lş g i lbrxyslşg <lhşh<gşlnht
+          <Container sx={{display:"flex", flexWrap:"wrap", justifyContent:"center", alignItems:"center"}}>
          
              {(filteredList?.length ? filteredList : productList)?.map((item, index) => {
             return (
