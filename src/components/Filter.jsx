@@ -26,8 +26,8 @@ const Filter = () => {
     min_price: 0,
     max_price: 0,
     price: 0,
-    shipping: false,
-  });
+    shipping: false,}
+  );
 
   useEffect(() => {
     dispatch(getProduct());
@@ -49,6 +49,7 @@ const Filter = () => {
     const { name, value } = e.target;
     console.log(e.target.value);
     setFilters({ ...filters, [name]: value });
+
   };
 
   // const filteredProducts = () => {
@@ -106,8 +107,8 @@ const Filter = () => {
   // };
 
   const filteredProducts = () => {
-    console.log(filters);
     const { text, category, company, color, price, shipping } = filters;
+    console.log(filters);
     let tempProducts = [...productList];
     console.log(tempProducts)
     if (text) {
@@ -139,7 +140,8 @@ const Filter = () => {
       );
     }
  
-    return setFilteredList(tempProducts);
+   return setFilteredList(tempProducts)
+
   };
 
   return (

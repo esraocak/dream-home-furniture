@@ -3,18 +3,41 @@ import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../features/productSlice";
+import {
+  addToFavoriteList,
+  removeFromFavouriteList,
+} from "../features/favoriteSlice";
 import loadinGif from "../assets/loading.gif";
-import { Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/material";
+import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Container,
+} from "@mui/material";
 
 const ProductsComp = () => {
+  const dispatch = useDispatch();
   const { productList, loading, error } = useSelector((state) => state.product);
   const { filteredList } = useSelector((state) => state.filter);
-  const dispatch = useDispatch();
-  console.log(filteredList)
+  const { favoriteList } = useSelector((state) => state.favorite);
+  console.log(filteredList);
 
   useEffect(() => {
     dispatch(getProduct());
   }, []);
+
+  const handleFavorite = (item) => {
+    if (favoriteList.map((i) => i.id).includes(item.id)) {
+      dispatch(removeFromFavouriteList(item));
+    } else {
+      dispatch(addToFavoriteList(item));
+    }
+  };
 
   return (
     <>
@@ -29,13 +52,19 @@ const ProductsComp = () => {
         </Box>
       )}
       {!loading && (
-        
-          <Container sx={{display:"flex", flexWrap:"wrap", justifyContent:"center", alignItems:"center"}}>
-         
-             {(filteredList?.length ? filteredList : productList)?.map((item, index) => {
-            return (
-              <Card sx={{ minWidth:200, maxWidth: 400, m: 3 }} key={index}>
-                <CardActionArea>
+        <Container
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center",
+            mt:"1.5rem"
+          }}
+        >
+          {(filteredList?.length ? filteredList : productList)?.map(
+            (item, index) => {
+              return (
+                <Card sx={{ minWidth: 200, maxWidth: 400, m: 3 }} key={index}>
                   <CardMedia
                     component="img"
                     height="140"
@@ -58,13 +87,32 @@ const ProductsComp = () => {
                       $ {item?.price}
                     </Typography>
                   </CardContent>
-                </CardActionArea>
-              </Card>
-            );
-          })}
-            </Container>
-         
-        
+                  <CardActions >
+                    <Button
+                      size="small"
+                      sx={{ color: "gray",ml:"1rem" }}
+                      /*onClick={() => handleAddToCart(item)}*/
+                    >
+                      Add to Cart
+                    </Button>
+                    <Button
+                      size="small"
+                      target="_blank"
+                      sx={{ color: "gray",ml:"2rem" }}
+                      onClick={() => handleFavorite(item)}
+                    >
+                      {favoriteList?.map((i) => i.id).includes(item.id) ? (
+                        <FavoriteRoundedIcon sx={{ fill: "red" }} />
+                      ) : (
+                        <FavoriteBorderIcon />
+                      )}
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+            }
+          )}
+        </Container>
       )}
     </>
   );
