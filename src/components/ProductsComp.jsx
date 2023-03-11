@@ -13,7 +13,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {
   Button,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
@@ -25,7 +24,7 @@ const ProductsComp = () => {
   const { productList, loading, error } = useSelector((state) => state.product);
   const { filteredList } = useSelector((state) => state.filter);
   const { favoriteList } = useSelector((state) => state.favorite);
-  console.log(filteredList);
+  console.log(filteredList)
 
   useEffect(() => {
     dispatch(getProduct());

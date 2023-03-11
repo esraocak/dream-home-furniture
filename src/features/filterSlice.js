@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
   filters: {
     text: "",
@@ -12,7 +11,7 @@ const initialState = {
     price: 0,
     shipping: false,
   },
-  filteredList:{} ,
+  filteredList: [],
 };
 
 const filterSlice = createSlice({
@@ -22,12 +21,10 @@ const filterSlice = createSlice({
     setFilters: (state, { payload }) => {
       console.log(payload);
       state.filters = payload;
-    
     },
 
     setFilteredList: (state, { payload }) => {
-      console.log(payload);
-      state.filteredList= payload;
+      state.filteredList = payload;
     },
   },
 });

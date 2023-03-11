@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -7,6 +6,8 @@ import {
   Select,
   Slider,
   Typography,
+  Button,
+  ToggleButton
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +16,7 @@ import { getProduct } from "../features/productSlice";
 import { Box } from "@mui/system";
 import { grey } from "@mui/material/colors";
 import { setFilteredList } from "../features/filterSlice";
+
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -26,8 +28,8 @@ const Filter = () => {
     min_price: 0,
     max_price: 0,
     price: 0,
-    shipping: false,}
-  );
+    shipping: false,
+  });
 
   useEffect(() => {
     dispatch(getProduct());
@@ -47,101 +49,61 @@ const Filter = () => {
   const updateFilters = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setFilters({ ...filters, [name]: value });
-
   };
 
-  // const filteredProducts = () => {
-  //   console.log(filters);
-
-  //   const { text, category, company, color, price, shipping } = filters;
-
-  //   if (text) {
-  //     dispatch(
-  //       setFilteredList(
-  //         productList?.filter((product) =>
-  //           product.name.toLowerCase().startsWith(text)
-  //         )
-  //       )
-  //     );
-  //   }
-  //   if (category !== "all") {
-  //     dispatch(
-  //       setFilteredList(
-  //         productList?.filter((product) => product.category === category)
-  //       )
-  //     );
-  //   }
-  //   if (company !== "all") {
-  //     dispatch(
-  //       setFilteredList(
-  //         productList?.filter((product) => product.company === company)
-  //       )
-  //     );
-  //   }
-  //   if (color !== "all") {
-  //     dispatch(
-  //       setFilteredList(
-  //         productList?.filter((product) => {
-  //           return product.colors.find((c) => c === color);
-  //         })
-  //       )
-  //     );
-  //   }
-  //   if (price) {
-  //     dispatch(
-  //       setFilteredList(
-  //         productList?.filter((product) => product.price <= price)
-  //       )
-  //     );
-  //   }
-
-  //   if (shipping) {
-  //     dispatch(
-  //       setFilteredList(
-  //         productList?.filter((product) => product.shipping === true)
-  //       )
-  //     );
-  //   }
-  // };
-
   const filteredProducts = () => {
+    // console.log(filters);
     const { text, category, company, color, price, shipping } = filters;
-    console.log(filters);
-    let tempProducts = [...productList];
-    console.log(tempProducts)
+
     if (text) {
-      tempProducts = tempProducts.filter((product) =>
-        product.name.toLowerCase().startsWith(text)
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) =>
+            product.name.toLowerCase().startsWith(text)
+          )
+        )
       );
     }
     if (category !== "all") {
-      tempProducts = tempProducts.filter(
-        (product) => product.category === category
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.category === category)
+        )
       );
     }
     if (company !== "all") {
-      tempProducts = tempProducts.filter(
-        (product) => product.company === company
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.company === company)
+        )
       );
     }
     if (color !== "all") {
-      tempProducts = tempProducts.filter((product) => {
-        return product.colors.find((c) => c === color);
-      });
-    }
-
-    tempProducts = tempProducts.filter((product) => product.price <= price);
-
-    if (shipping) {
-      tempProducts = tempProducts.filter(
-        (product) => product.shipping === true
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => {
+            return product.colors.find((c) => c === color);
+          })
+        )
       );
     }
- 
-   return setFilteredList(tempProducts)
+    if (price) {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.price <= price)
+        )
+      );
+    }
 
+    if (shipping) {
+      dispatch(
+        setFilteredList(
+          productList?.filter((product) => product.shipping === true)
+        )
+      );
+    }
   };
 
   return (
@@ -162,7 +124,12 @@ const Filter = () => {
                   key={index}
                   variant="text"
                   size="small"
-                  sx={{ color: "gray", width: "8rem" }}
+                  sx={{
+                    color: "gray",
+                    width: "8rem",
+                    ":active":{backgroundColor:"black"
+                  }
+                  }}
                   style={{ justifyContent: "flex-start" }}
                   value={c}
                   onClick={updateFilters}
