@@ -7,7 +7,7 @@ import {
   Slider,
   Typography,
   Button,
-  ToggleButton
+  ToggleButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,6 @@ import { getProduct } from "../features/productSlice";
 import { Box } from "@mui/system";
 import { grey } from "@mui/material/colors";
 import { setFilteredList } from "../features/filterSlice";
-
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -51,61 +50,53 @@ const Filter = () => {
     const { name, value } = e.target;
     // console.log(e.target.value);
     setFilters({ ...filters, [name]: value });
-  };
-
-  const filteredProducts = () => {
     // console.log(filters);
+  };
+  const filteredProducts = () => {
     const { text, category, company, color, price, shipping } = filters;
-
+    console.log(filters);
+    console.log(productList);
+    let tempProducts = [...productList];
+    console.log(tempProducts);
     if (text) {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) =>
-            product.name.toLowerCase().startsWith(text)
-          )
-        )
+      tempProducts = tempProducts.filter((product) =>
+        product.name.toLowerCase().startsWith(text)
       );
+      setFilteredList(tempProducts);
     }
     if (category !== "all") {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.category === category)
-        )
+      tempProducts = tempProducts.filter(
+        (product) => product.category === category
       );
+      setFilteredList(tempProducts);
     }
     if (company !== "all") {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.company === company)
-        )
+      tempProducts = tempProducts.filter(
+        (product) => product.company === company
       );
+      setFilteredList(tempProducts);
     }
+  
     if (color !== "all") {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => {
-            return product.colors.find((c) => c === color);
-          })
-        )
-      );
+      tempProducts = tempProducts.filter((product) => {
+        return product.colors.find((c) => c === color);
+      });
+      setFilteredList(tempProducts);
     }
+
     if (price) {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.price <= price)
-        )
-      );
+      tempProducts = tempProducts.filter((product) => product.price <= price);
+      setFilteredList(tempProducts);
     }
 
     if (shipping) {
-      dispatch(
-        setFilteredList(
-          productList?.filter((product) => product.shipping === true)
-        )
+      tempProducts = tempProducts.filter(
+        (product) => product.shipping === true
       );
+      setFilteredList(tempProducts);
     }
+    console.log(tempProducts)
   };
-
   return (
     <>
       <Box display="flex" flexDirection="column" gap="1rem">
@@ -127,8 +118,7 @@ const Filter = () => {
                   sx={{
                     color: "gray",
                     width: "8rem",
-                    ":active":{backgroundColor:"black"
-                  }
+                    ":active": { backgroundColor: "black" },
                   }}
                   style={{ justifyContent: "flex-start" }}
                   value={c}

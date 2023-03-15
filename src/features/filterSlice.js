@@ -24,6 +24,7 @@ const filterSlice = createSlice({
     },
 
     setFilteredList: (state, { payload }) => {
+      console.log(payload);
       state.filteredList = payload;
     },
   },
