@@ -54,48 +54,49 @@ const Filter = () => {
   };
   const filteredProducts = () => {
     const { text, category, company, color, price, shipping } = filters;
-    console.log(filters);
-    console.log(productList);
+    // console.log(filters);
+    // console.log(productList);
     let tempProducts = [...productList];
     console.log(tempProducts);
     if (text) {
       tempProducts = tempProducts.filter((product) =>
         product.name.toLowerCase().startsWith(text)
       );
-      setFilteredList(tempProducts);
+      
     }
     if (category !== "all") {
       tempProducts = tempProducts.filter(
         (product) => product.category === category
       );
-      setFilteredList(tempProducts);
+  
     }
     if (company !== "all") {
       tempProducts = tempProducts.filter(
         (product) => product.company === company
       );
-      setFilteredList(tempProducts);
+      
     }
   
     if (color !== "all") {
       tempProducts = tempProducts.filter((product) => {
         return product.colors.find((c) => c === color);
       });
-      setFilteredList(tempProducts);
+ 
     }
 
     if (price) {
       tempProducts = tempProducts.filter((product) => product.price <= price);
-      setFilteredList(tempProducts);
+      
     }
 
     if (shipping) {
       tempProducts = tempProducts.filter(
         (product) => product.shipping === true
       );
-      setFilteredList(tempProducts);
+    
     }
-    console.log(tempProducts)
+    
+    dispatch(setFilteredList(tempProducts));
   };
   return (
     <>
