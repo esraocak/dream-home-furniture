@@ -6,11 +6,42 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilteredList } from "../features/filterSlice";
 
 const Sort = () => {
+  const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.product);
   const { filteredList } = useSelector((state) => state.filter);
+
+  const sortProducts = (e) => {
+    let tempProducts = [];
+    let sort = e.target.value;
+
+    if (sort === "low") {
+      tempProducts = [
+        ...(filteredList?.length ? filteredList : productList).values(),
+      ].sort((a, b) => a.price - b.price);
+    }
+
+    if (sort === "high") {
+      tempProducts = [
+        ...(filteredList?.length ? filteredList : productList).values(),
+      ].sort((a, b) => b.price - a.price);
+    }
+
+    if (sort === "a-z") {
+      tempProducts = [
+        ...(filteredList?.length ? filteredList : productList).values(),
+      ].sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (sort === "z-a") {
+      tempProducts = [
+        ...(filteredList?.length ? filteredList : productList).values(),
+      ].sort((a, b) => b.name.localeCompare(a.name));
+    }
+    dispatch(setFilteredList(tempProducts));
+  };
   return (
     <>
       <Box
@@ -25,7 +56,8 @@ const Sort = () => {
       >
         <Box display="flex" mr="2rem">
           <Typography textAlign="center" mt="0.8rem" width="40%" noWrap>
-          {filteredList?.length ? filteredList.length : productList?.length} Products Found
+            {filteredList?.length ? filteredList.length : productList?.length}{" "}
+            Products Found
           </Typography>
           <Box ml="3rem">
             <hr
@@ -58,11 +90,12 @@ const Sort = () => {
                 name: "sort",
                 id: "uncontrolled-native",
               }}
+              onChange={sortProducts}
             >
               <option value="low">Price (Lowest)</option>
               <option value="high">Price (Highest)</option>
-              <option value="a">Name (A-Z)</option>
-              <option value="z">Name (Z-A)</option>
+              <option value="a-z">Name (A-Z)</option>
+              <option value="z-a">Name (Z-A)</option>
             </NativeSelect>
           </Box>
         </FormControl>

@@ -8,6 +8,7 @@ import {
   Typography,
   Button,
   ToggleButton,
+  TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -52,6 +53,11 @@ const Filter = () => {
     setFilters({ ...filters, [name]: value });
     // console.log(filters);
   };
+
+  const clearFilters =() => {
+    
+
+  }
   const filteredProducts = () => {
     const { text, category, company, color, price, shipping } = filters;
     // console.log(filters);
@@ -62,52 +68,55 @@ const Filter = () => {
       tempProducts = tempProducts.filter((product) =>
         product.name.toLowerCase().startsWith(text)
       );
-      
     }
     if (category !== "all") {
       tempProducts = tempProducts.filter(
         (product) => product.category === category
       );
-  
     }
     if (company !== "all") {
       tempProducts = tempProducts.filter(
         (product) => product.company === company
       );
-      
     }
-  
+
     if (color !== "all") {
       tempProducts = tempProducts.filter((product) => {
         return product.colors.find((c) => c === color);
       });
- 
     }
 
     if (price) {
       tempProducts = tempProducts.filter((product) => product.price <= price);
-      
     }
 
     if (shipping) {
       tempProducts = tempProducts.filter(
         (product) => product.shipping === true
       );
-    
     }
-    
+
     dispatch(setFilteredList(tempProducts));
   };
   return (
     <>
       <Box display="flex" flexDirection="column" gap="1rem">
+        {/* search */}
+        <Box>
+          <TextField
+            hiddenLabel
+            name="text"
+            id="filled-hidden-label-small"
+            variant="filled"
+            size="small"
+            color="black"
+            placeholder="Search"
+            margin="normal"
+            sx={{ width: "10rem" }}
+          />
+        </Box>
         {/* category */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          mt="0.8rem"
-        >
+        <Box display="flex" flexDirection="column" justifyContent="center">
           <Typography variant="h6">Category</Typography>
           <Box display="flex" flexDirection="column">
             {categories.map((c, index) => {
@@ -251,6 +260,7 @@ const Filter = () => {
             textTransform: "none",
             fontSize: "0.9rem",
           }}
+          onClick={clearFilters}
         >
           Clear Filters
         </Button>

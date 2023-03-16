@@ -3,7 +3,6 @@ import { Box, Container } from "@mui/system";
 import React from 'react'
 import Filter from "../components/Filter";
 import ProductsComp from "../components/ProductsComp";
-import Search from "../components/Search";
 import Sort from "../components/Sort";
 
 const Product = () => {
@@ -23,11 +22,10 @@ const Product = () => {
         </Breadcrumbs>
        </Box> 
 
-      <Container sx={{display:"flex",ml:"2rem"}}> {/* en dış  */}
+      <Container sx={{display:"flex",ml:"2rem",mt:"2rem"}}> {/* en dış  */}
 
         {/* // ! sol kısım */}
       <Box sx={{ display:"flex", flexDirection:"column",}} >
-       <Search/>
        <Filter/>
       </Box>
 
