@@ -18,6 +18,7 @@ import {
   CardMedia,
   Container,
 } from "@mui/material";
+import Details from "./Details";
 
 const ProductsComp = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const ProductsComp = () => {
                     width="300"
                     image={item?.image}
                     alt={item?.name}
+
                   />
                   <CardContent
                     sx={{
