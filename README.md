@@ -4,7 +4,7 @@
 
 ## Description
 
-Project aims to create Dream Home Furniture. You can create your design by choosing the furniture you want with various filters. you can create a favorite list of your favorites. You can shop as a member of the site.
+Project aims to create E-Commerce App. You can create your design by choosing the furniture you want with various filters. you can create a favorite list of your favorites. You can shop as a member of the site.
 
 ## Objective
 
