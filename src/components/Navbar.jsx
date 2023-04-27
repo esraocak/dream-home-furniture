@@ -17,7 +17,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Badge, Link } from "@mui/material";
 import { login, pages } from "../utils/constants";
 
-const settings = ["Login", "Register", "Logout"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
