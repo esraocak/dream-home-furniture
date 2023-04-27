@@ -1,6 +1,6 @@
 # Dream Home Furniture
 
-## Live Link ---> https://dream-home-furniture-esra.netlify.app/
+## Live Link ---> https://dream-home-furniture.netlify.app/
 
 ## Description
 
