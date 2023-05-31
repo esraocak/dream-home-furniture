@@ -13,7 +13,7 @@ const Details = () => {
             Home
           </Link>
           <Typography color="textPrimary" fontSize="2.2rem" fontWeight="800">
-            About
+            Details
           </Typography>
         </Breadcrumbs>
       </Box>
